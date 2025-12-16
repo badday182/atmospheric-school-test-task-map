@@ -47,7 +47,7 @@ function Map() {
   return (
     <>
       <MapContainer
-        className="markercluster-map"
+        className="markercluster-map rounded-2xl shadow-lg overflow-hidden"
         center={[51.0, 19.0]}
         zoom={4}
         maxZoom={18}
