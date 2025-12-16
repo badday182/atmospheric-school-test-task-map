@@ -6,6 +6,31 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 function Map() {
+  const users: {
+    id: number;
+    name: string;
+    interests: string[];
+    position: [number, number];
+  }[] = [
+    {
+      id: 1,
+      name: "John Doe",
+      interests: ["music", "art", "nature"],
+      position: [49.8397, 24.0297],
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      interests: ["sports", "travel", "food"],
+      position: [52.2297, 21.0122],
+    },
+    {
+      id: 3,
+      name: "Jack Johnson",
+      interests: ["technology", "gaming", "outdoors"],
+      position: [51.5074, -0.0901],
+    },
+  ];
   return (
     <>
       <MapContainer
@@ -19,13 +44,22 @@ function Map() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <MarkerClusterGroup>
-          <Marker position={[49.8397, 24.0297]} />
-          <Marker position={[52.2297, 21.0122]} />
-          <Marker position={[51.5074, -0.0901]} />
+          {users.map((user) => (
+            <Marker key={user.id} position={user.position}>
+              <Popup>
+                <strong>{user.name}</strong>
+                <br />
+                <em>Interests:</em>
+                <ul>
+                  {user.interests.map((interest, index) => (
+                    <li key={index}>{interest}</li>
+                  ))}
+                </ul>
+              </Popup>
+            </Marker>
+          ))}
         </MarkerClusterGroup>
-        ;
       </MapContainer>
-      ;
     </>
   );
 }
