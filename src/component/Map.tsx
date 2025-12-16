@@ -5,23 +5,18 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { useUsers } from "../hooks/useUsers";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 
 function Map() {
   const { users, loading, error, refetch } = useUsers();
 
   if (loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          fontSize: "1.5rem",
-        }}
-      >
-        Loading data...
-      </div>
+      <>
+        <Skeleton className="h-full w-full rounded-xl" />
+        <Spinner className="absolute inset-0 m-auto size-4" />
+      </>
     );
   }
 
