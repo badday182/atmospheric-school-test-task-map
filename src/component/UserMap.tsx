@@ -14,7 +14,9 @@ function UserMap({ users }: UserMapProps) {
   const filteredUsers = useFilteredUsers(users, filter);
 
   const handleFilterChange = (value: string) => {
-    setFilter(value);
+    if (value.length > 2 || value.length === 0) {
+      setFilter(value);
+    }
   };
 
   return (

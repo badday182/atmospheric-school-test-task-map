@@ -3,32 +3,28 @@ import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import inputLettersForSearching from "@/constants/inputLettersForSearching";
 
 interface InterestFilterProps {
   value: string;
   onChange: (value: string) => void;
   resultCount: number;
-  // totalCount: number;
 }
 
-/**
- * Input component for filtering users by interest
- * Uses internal debounce for smooth typing experience
- */
 export function InterestFilter({
   value,
   onChange,
   resultCount,
 }: InterestFilterProps) {
   const [inputValue, setInputValue] = useState(value);
-  const isLoading = inputValue !== value;
+  const isLoading =
+    inputValue !== value && inputValue.length > inputLettersForSearching - 1;
 
   // Debounce: update parent state after 300ms of no typing
   useEffect(() => {
     const timer = setTimeout(() => {
       onChange(inputValue);
     }, 300);
-
     return () => clearTimeout(timer);
   }, [inputValue, onChange]);
 
@@ -57,7 +53,6 @@ export function InterestFilter({
           <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-2">
             {isLoading && <Spinner className="h-4 w-4" />}
             <span className="text-sm text-muted-foreground">
-              {/* Showing {resultCount} of {totalCount} users */}
               Showing {resultCount} users
             </span>
             <Button
