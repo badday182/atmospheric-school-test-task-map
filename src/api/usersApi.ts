@@ -14,6 +14,7 @@ export const fetchUsers = async (): Promise<User[]> => {
       try {
         // Simulate possible error (5% chance)
         if (Math.random() < 0.05) {
+          // if (Math.random() < 1) {
           reject(new Error("Failed to fetch users from server"));
         }
 

@@ -7,6 +7,10 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { useUsers } from "../hooks/useUsers";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent } from "@/components/ui/card";
+import { AlertCircle, RefreshCw } from "lucide-react";
 
 function Map() {
   const { users, loading, error, refetch } = useUsers();
@@ -22,19 +26,20 @@ function Map() {
 
   if (error) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          color: "red",
-        }}
-      >
-        <h2>Error</h2>
-        <p>{error}</p>
-        <button onClick={refetch}>Try again</button>
+      <div className="flex items-center justify-center h-full w-full p-8">
+        <Card className="max-w-md w-full">
+          <CardContent>
+            <Alert variant="destructive" className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+            <Button onClick={refetch} className="w-full" variant="outline">
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Try again
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
