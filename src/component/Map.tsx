@@ -6,12 +6,13 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 function Map() {
-  const users: {
+  interface User {
     id: number;
     name: string;
     interests: string[];
     position: [number, number];
-  }[] = [
+  }
+  const users: User[] = [
     {
       id: 1,
       name: "John Doe",
