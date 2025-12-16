@@ -1,35 +1,13 @@
-import { useState, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "./map.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import { fetchUsers } from "../api/usersApi";
-import type { User } from "../types/user";
+import { useUsers } from "../hooks/useUsers";
 
 function Map() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await fetchUsers();
-        setUsers(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Error loading data");
-        console.error("Error fetching users:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadUsers();
-  }, []);
+  const { users, loading, error, refetch } = useUsers();
 
   if (loading) {
     return (
@@ -61,7 +39,7 @@ function Map() {
       >
         <h2>Error</h2>
         <p>{error}</p>
-        <button onClick={() => window.location.reload()}>Try again</button>
+        <button onClick={refetch}>Try again</button>
       </div>
     );
   }
