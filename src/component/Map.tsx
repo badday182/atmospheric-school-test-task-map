@@ -4,34 +4,17 @@ import "./map.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import usersData from "../data/users.json";
+
+interface User {
+  id: number;
+  name: string;
+  interests: string[];
+  position: [number, number];
+}
 
 function Map() {
-  interface User {
-    id: number;
-    name: string;
-    interests: string[];
-    position: [number, number];
-  }
-  const users: User[] = [
-    {
-      id: 1,
-      name: "John Doe",
-      interests: ["music", "art", "nature"],
-      position: [49.8397, 24.0297],
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      interests: ["sports", "travel", "food"],
-      position: [52.2297, 21.0122],
-    },
-    {
-      id: 3,
-      name: "Jack Johnson",
-      interests: ["technology", "gaming", "outdoors"],
-      position: [51.5074, -0.0901],
-    },
-  ];
+  const users: User[] = usersData as User[];
   return (
     <>
       <MapContainer
