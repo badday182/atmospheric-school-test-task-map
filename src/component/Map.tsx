@@ -5,7 +5,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { useUsers } from "../hooks/useUsers";
 import { LoadingState } from "./LoadingState";
 import { ErrorState } from "./ErrorState";
-import { UserMap } from "./UserMap";
+import UserMap from "./UserMap";
 
 function Map() {
   const { users, loading, error, refetch } = useUsers();
