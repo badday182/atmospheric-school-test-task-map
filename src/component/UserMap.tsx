@@ -3,7 +3,9 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import type { User } from "../types/user";
 import { InterestFilter } from "./InterestFilter";
 import { useFilteredUsers } from "@/hooks/useFilteredUsers";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import inputLettersForSearching from "@/constants/inputLettersForSearching";
 
 interface UserMapProps {
   users: User[];
@@ -12,10 +14,16 @@ interface UserMapProps {
 function UserMap({ users }: UserMapProps) {
   const [filter, setFilter] = useState("");
   const filteredUsers = useFilteredUsers(users, filter);
+  const [isPending, startTransition] = useTransition();
 
   const handleFilterChange = (value: string) => {
-    if (value.length > 2 || value.length === 0) {
-      setFilter(value);
+    if (
+      value !== filter &&
+      (value.length === 0 || value.length >= inputLettersForSearching - 1)
+    ) {
+      startTransition(() => {
+        setFilter(value);
+      });
     }
   };
 
@@ -26,10 +34,13 @@ function UserMap({ users }: UserMapProps) {
           value={filter}
           onChange={handleFilterChange}
           resultCount={filteredUsers.length}
-          //   totalCount={users.length}
         />
-
-        <div className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 relative">
+          {isPending && (
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-[1000] flex items-center justify-center rounded-2xl">
+              <Spinner className="w-8 h-8" />
+            </div>
+          )}
           <MapContainer
             className="markercluster-map rounded-2xl shadow-lg overflow-hidden"
             center={[51.0, 19.0]}
