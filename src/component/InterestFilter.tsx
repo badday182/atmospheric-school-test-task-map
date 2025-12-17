@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import inputLettersForSearching from "@/constants/inputLettersForSearching";
 
 interface InterestFilterProps {
   value: string;
@@ -17,8 +16,7 @@ export function InterestFilter({
   resultCount,
 }: InterestFilterProps) {
   const [inputValue, setInputValue] = useState(value);
-  const isLoading =
-    inputValue !== value && inputValue.length > inputLettersForSearching - 1;
+  const isLoading = inputValue !== value && inputValue.length > 2;
 
   // Debounce: update parent state after 300ms of no typing
   useEffect(() => {

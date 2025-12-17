@@ -5,7 +5,7 @@ import { InterestFilter } from "./InterestFilter";
 import { useFilteredUsers } from "@/hooks/useFilteredUsers";
 import { useState, useTransition } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import inputLettersForSearching from "@/constants/inputLettersForSearching";
+// import inputLettersForSearching from "@/constants/inputLettersForSearching";
 
 interface UserMapProps {
   users: User[];
@@ -17,10 +17,7 @@ function UserMap({ users }: UserMapProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleFilterChange = (value: string) => {
-    if (
-      value !== filter &&
-      (value.length === 0 || value.length >= inputLettersForSearching - 1)
-    ) {
+    if (value !== filter && (value.length === 0 || value.length >= 2)) {
       startTransition(() => {
         setFilter(value);
       });

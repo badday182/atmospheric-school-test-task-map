@@ -1,10 +1,10 @@
 import type { User } from "../types/user";
-import inputLettersForSearching from "@/constants/inputLettersForSearching";
+// import inputLettersForSearching from "@/constants/inputLettersForSearching";
 
 export function useFilteredUsers(users: User[], filter: string): User[] {
   const trimmedFilter = filter.trim().toLowerCase();
 
-  if (!trimmedFilter || trimmedFilter.length < inputLettersForSearching) {
+  if (!trimmedFilter || trimmedFilter.length < 3) {
     return users;
   }
 
