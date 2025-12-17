@@ -37,7 +37,7 @@ function UserMap({ users }: UserMapProps) {
         />
         <div className="flex-1 min-h-0 relative">
           {isPending && (
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-[1000] flex items-center justify-center rounded-2xl">
+            <div className="absolute inset-0 z-[1000] flex items-center justify-center rounded-2xl">
               <Spinner className="w-8 h-8" />
             </div>
           )}
